@@ -1,0 +1,12 @@
+#Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+#JSON
+gg2013.json
+gg2015.json
