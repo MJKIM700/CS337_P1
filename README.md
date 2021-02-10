@@ -5,6 +5,12 @@ python3 -m venv ./venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
+Make sure you are in your virtual environment when installing packages for this project! When you are ready to commit, make sure you run 
+```
+pip freeze > requirements.txt
+```
+to ensure that your requirements.txt is fully updated.
+
 To get out of the virtual environment, simply type:
 ```
 deactivate
