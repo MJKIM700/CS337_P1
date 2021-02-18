@@ -10,7 +10,7 @@ import pandas as pd
 class Tweet(object):
     def __init__(self, id:int, text:str):
         self.id = id
-        self.text = text
+        self.text = text.lower()
 
     def __str__(self):
         string = 'ID: ' + str(self.id) + '\n'
