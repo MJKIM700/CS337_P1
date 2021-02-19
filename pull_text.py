@@ -25,7 +25,7 @@ class Data(object):
         tweet_data = pd.read_json(name)
         tweets = []
         for index,row in tweet_data.iterrows():
-            new_tweet = Tweet(row['id'], row['text'], row['text'])
+            new_tweet = Tweet(row['id'], row['text'])
             tweets.append(new_tweet)
         self.tweets = tweets.copy()
 
