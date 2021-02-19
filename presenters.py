@@ -12,13 +12,13 @@ ignore = ['cecil', 'b.', 'demille', 'animated', 'http', 'mad', 'motion', ')', '(
 def handle_high_score(candidate_dict: dict, award: str, tweet: str, score: int):
     if award in candidate_dict:
         if tweet in candidate_dict[award]:
-            # print('did not put', tweet, 'into', award, 'because it was already in')
+            print('did not put', tweet, 'into', award, 'because it was already in')
             pass
         else:
             candidate_dict[award].append(tweet)
     else:
         candidate_dict[award] = [tweet]
-    # print('put', tweet, 'into', award, 'because the match score was', score)
+    print('put', tweet, 'into', award, 'because the match score was', score)
     return candidate_dict
 
 def check_people(tokens):
@@ -64,8 +64,8 @@ def make_string_combinations(tokenized_string: list, direction: str, person: boo
         curr_idx += 1
     return combos
 
-def get_winners(year):
-    key_words = ['wins', 'won', 'win', 'receives']
+def get_presenters(year):
+    key_words = ['presenters', 'presenter', 'presenting', 'presents', 'present']
     tweets = pull_text.Data(year).tweets
     if year == 2013 or year == 2015:
         awards = OFFICIAL_AWARDS_1.copy()
@@ -108,11 +108,7 @@ def get_winners(year):
     awards_no_candidates = dict()
     for award in awards:
         bucket = []
-        award_tokens = word_tokenize(award)
-        if 'actor' in award_tokens or 'actress' in award_tokens or 'director' in award_tokens:
-            person = True
-        else:
-            person = False
+        person = True
         if award in award_candidate_sents:
             all_candidates = award_candidate_sents[award]
         else:
@@ -145,26 +141,37 @@ def get_winners(year):
                 bucket.extend(make_string_combinations(tokenized[0:nom_idx], 'left', person))
                 bucket.extend(make_string_combinations(tokenized[nom_idx + 1:], 'right', person))
         final_nominees[award] = bucket
-    complete_winners = dict()
+    complete_presenters = dict()
     for award in awards:
         if award in awards_no_candidates:
             use_award = awards_no_candidates[award]
             if use_award in final_nominees:
                 bucket = final_nominees[use_award]
             else:
-                print('Winner for', award, ':no one')
                 continue
             dist = FreqDist(bucket)
-            complete_winners[award] = dist.most_common(6)[6][0]
+            common = dist.most_common(4)
+            if len(common) > 2:
+                complete_presenters[award] = [common[1][0], common[0][0]]
+            elif len(common) == 1:
+                complete_presenters[award] = [bucket[0]]
+            else:
+                complete_presenters[award] = []
         else:
             bucket = final_nominees[award]
             dist = FreqDist(bucket)
-            complete_winners[award] = dist.most_common(1)[0][0]
-    print(complete_winners)
-    return complete_winners
+            common = dist.most_common(3)
+            if len(common) > 1:
+                complete_presenters[award] = [common[1][0], common[0][0]]
+            elif len(common) == 1:
+                complete_presenters[award] = [common[0][0]]
+            else:
+                complete_presenters[award] = []
+    print(complete_presenters)
+    return complete_presenters
 
 
 
 
 if __name__ == '__main__':
-    get_winners(int(sys.argv[1]))
+    get_presenters(int(sys.argv[1]))

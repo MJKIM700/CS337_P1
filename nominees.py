@@ -151,7 +151,6 @@ def get_nominees(year):
             use_award = awards_no_candidates[award]
             bucket = final_nominees[use_award]
             dist = FreqDist(bucket)
-            print('Nominees for', award, ':', dist.most_common(10)[6:])
             for noms in dist.most_common(10)[6:]:
                 if noms[0] not in complete_noms[award]:
                     complete_noms[award] = [noms[0]]
@@ -160,7 +159,6 @@ def get_nominees(year):
         else:
             bucket = final_nominees[award]
             dist = FreqDist(bucket)
-            print('Nominees for', award, ':', dist.most_common(5))
             nom_list = []
             for noms in dist.most_common(5):
                 nom_list.append(noms[0])
