@@ -21,6 +21,7 @@ def processTweets(tweet_data):
     return hostTweetTexts
 
 def rankProperNouns(lstOfSent):
+    """takes the text from tweets and ranks the Proper Nouns by the number of times they appear"""
     votes = {}
     # loop through each tweet in the list of tweets
     for sentence in lstOfSent:
@@ -59,14 +60,15 @@ def rankProperNouns(lstOfSent):
         else: continue
     return votes
 
-#def sortDict(voteDict):
-    #return dict(sorted(voteDict.items(), key=lambda item: item[1], reverse=True))
-
 def findHosts(Dict):
+    """takes a dictionary w/ Proper Nouns as keys and votes as values, returns the host(s)"""
+    # convert the dictionary of votes to a list of tuples
     lstOfTup = [(k, Dict[k]) for k in sorted(Dict, key=Dict.get, reverse=True)]
+    # convert the list of tuples [(key, value), ... ] to a list of lists [[key, value], ... ]
     lstOfLst = []
     for i in lstOfTup:
         lstOfLst.append(list(i))
+    # shorten the list to the proper nouns with 100+ votes
     shortlist = []
     shortlistwNum = []
     i = 0
@@ -75,6 +77,7 @@ def findHosts(Dict):
         shortlistwNum.append(lstOfLst[i])
         i += 1
     shortlistLen = [len(i.split()) for i in shortlist]
+    # separate proper nouns into two lists: single holds single-word nouns, double holds two-word nouns
     single = []
     double = []
     for i in range(len(shortlist)):
@@ -82,32 +85,50 @@ def findHosts(Dict):
             single.append(shortlist[i])
         if shortlistLen[i] == 2:
             double.append(shortlist[i])
+    # loop through single and get every possible pair combo of two proper nouns
+    # if any of these pairs match a two-word key, it might be a first and last name
+    # store combos of first and last name that match two-word keys in potentialHost
     potentialHost = []
     for i in range(len(single)):
         for j in range(len(single)):
             if str(single[i] +' '+ single[j]) in double:
                 firstLast = str(single[i] +' '+ single[j])
                 potentialHost.append(firstLast)
+    # compare the number of votes between the top two 2-word (first-last name) keys
     dictValues = []
     for i in range(len(potentialHost)):
         dictValues.append(Dict.get(potentialHost[i]))
     host1index = dictValues.index(max(dictValues))
+    # host1 is the first+last name with most votes
     host1 = potentialHost[host1index]
     sortedValues = [val for val in dictValues]
     sortedValues.sort(reverse=True)
     host2value = sortedValues[1]
     host2index = dictValues.index(host2value)
+    # if the first+last name with second most votes has at least 50% 
+    # as many votes as the first+last name with the most votes,
+    # the first+last name with 2nd most votes may be 2nd host
     if dictValues[host2index] >= float(0.5 * Dict.get(host1)):
         host2 = potentialHost[host2index]
-        print('Hosts are: {} and {}'.format(host1, host2))
-        return host1, host2
+        #print('Hosts are: {} and {}'.format(host1, host2))
+        return [host1, host2]
     else:
-        print('Host is: {}'.format(host1))
-        return host1
+        #print('Host is: {}'.format(host1))
+        return [host1]
     return
 
-if __name__ == '__main__':
-    rawData = tweetData(int(sys.argv[1]))
+def runHosts(year):
+    rawData = tweetData(year)
     cleanData = processTweets(rawData)
     host_votes = rankProperNouns(cleanData)
-    print(findHosts(host_votes))
+    host_s = findHosts(host_votes)
+    return host_s
+    
+
+if __name__ == '__main__':
+    runHosts(int(sys.argv[1]))
+    #output = runHosts(int(sys.argv[1]))
+    #if len(output) == 1:
+        #print('host is: ' + str(output))
+    #if len(output) == 2:
+        #print('hosts are {} and {}'.format(str(output[0]), str(output[1])))
