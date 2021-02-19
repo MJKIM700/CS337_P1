@@ -5,9 +5,9 @@ from nltk import FreqDist
 from fuzzywuzzy import fuzz
 import spacy
 
-OFFICIAL_AWARDS_1 = ['best motion picture - drama', 'best performance by an actress in a motion picture - drama', 'best performance by an actor in a motion picture - drama', 'best motion picture - comedy or musical', 'best performance by an actress in a motion picture - comedy or musical', 'best performance by an actor in a motion picture - comedy or musical', 'best animated feature film', 'best foreign language film', 'best performance by an actress in a supporting role in a motion picture', 'best performance by an actor in a supporting role in a motion picture', 'best director - motion picture', 'best screenplay - motion picture', 'best original score - motion picture', 'best original song - motion picture', 'best television series - drama', 'best performance by an actress in a television series - drama', 'best performance by an actor in a television series - drama', 'best television series - comedy or musical', 'best performance by an actress in a television series - comedy or musical', 'best performance by an actor in a television series - comedy or musical', 'best mini-series or motion picture made for television', 'best performance by an actress in a mini-series or motion picture made for television', 'best performance by an actor in a mini-series or motion picture made for television', 'best performance by an actress in a supporting role in a series, mini-series or motion picture made for television', 'best performance by an actor in a supporting role in a series, mini-series or motion picture made for television']
-OFFICIAL_AWARDS_2 = ['best motion picture - drama', 'best motion picture - musical or comedy', 'best performance by an actress in a motion picture - drama', 'best performance by an actor in a motion picture - drama', 'best performance by an actress in a motion picture - musical or comedy', 'best performance by an actor in a motion picture - musical or comedy', 'best performance by an actress in a supporting role in any motion picture', 'best performance by an actor in a supporting role in any motion picture', 'best director - motion picture', 'best screenplay - motion picture', 'best motion picture - animated', 'best motion picture - foreign language', 'best original score - motion picture', 'best original song - motion picture', 'best television series - drama', 'best television series - musical or comedy', 'best television limited series or motion picture made for television', 'best performance by an actress in a limited series or a motion picture made for television', 'best performance by an actor in a limited series or a motion picture made for television', 'best performance by an actress in a television series - drama', 'best performance by an actor in a television series - drama', 'best performance by an actress in a television series - musical or comedy', 'best performance by an actor in a television series - musical or comedy', 'best performance by an actress in a supporting role in a series, limited series or motion picture made for television', 'best performance by an actor in a supporting role in a series, limited series or motion picture made for television']
-ignore = ['animated', 'http', 'mad', 'motion', ')', '(', 'at', '"', '``', 'television', 'musical', '“', 'goes', 'screenplay', 'performance', 'i', 'or', 'upset', 'happy', 'sad', 'good', 'bad', 'funny', 'cool', 'awful', 'terrible', 'supporting', 'series', 'these', 'did', 'actor', 'actress', 'oscars', 'even', ',', "n't", 'nominee','tv', 'mini-series', 'miniseries', 'of', '?', 'was', 'get', 'film', 'language', 'comedy', 'drama', 'in', 'are', 'goldenglobes', 'the', 'song', 'original', 'rt', '!', '#', 'for', 'is', 'want', '@', "'", 'best', 'golden', 'globes', 'should', 'have', 'been', '-', ':', 'picture', 'director', '.', 'introduce', 'a', 'an', 'foreign', 'oscar', 'introduces', 'score', 'original', 'he', 'she', 'they', 'and', 'as', "'ve", 'not', 'on', 'oscarnoms', 'ovation']
+OFFICIAL_AWARDS_1 = ['cecil b. demille award', 'best motion picture - drama', 'best performance by an actress in a motion picture - drama', 'best performance by an actor in a motion picture - drama', 'best motion picture - comedy or musical', 'best performance by an actress in a motion picture - comedy or musical', 'best performance by an actor in a motion picture - comedy or musical', 'best animated feature film', 'best foreign language film', 'best performance by an actress in a supporting role in a motion picture', 'best performance by an actor in a supporting role in a motion picture', 'best director - motion picture', 'best screenplay - motion picture', 'best original score - motion picture', 'best original song - motion picture', 'best television series - drama', 'best performance by an actress in a television series - drama', 'best performance by an actor in a television series - drama', 'best television series - comedy or musical', 'best performance by an actress in a television series - comedy or musical', 'best performance by an actor in a television series - comedy or musical', 'best mini-series or motion picture made for television', 'best performance by an actress in a mini-series or motion picture made for television', 'best performance by an actor in a mini-series or motion picture made for television', 'best performance by an actress in a supporting role in a series, mini-series or motion picture made for television', 'best performance by an actor in a supporting role in a series, mini-series or motion picture made for television']
+OFFICIAL_AWARDS_2 = ['cecil b. demille award', 'best motion picture - drama', 'best motion picture - musical or comedy', 'best performance by an actress in a motion picture - drama', 'best performance by an actor in a motion picture - drama', 'best performance by an actress in a motion picture - musical or comedy', 'best performance by an actor in a motion picture - musical or comedy', 'best performance by an actress in a supporting role in any motion picture', 'best performance by an actor in a supporting role in any motion picture', 'best director - motion picture', 'best screenplay - motion picture', 'best motion picture - animated', 'best motion picture - foreign language', 'best original score - motion picture', 'best original song - motion picture', 'best television series - drama', 'best television series - musical or comedy', 'best television limited series or motion picture made for television', 'best performance by an actress in a limited series or a motion picture made for television', 'best performance by an actor in a limited series or a motion picture made for television', 'best performance by an actress in a television series - drama', 'best performance by an actor in a television series - drama', 'best performance by an actress in a television series - musical or comedy', 'best performance by an actor in a television series - musical or comedy', 'best performance by an actress in a supporting role in a series, limited series or motion picture made for television', 'best performance by an actor in a supporting role in a series, limited series or motion picture made for television']
+ignore = ['cecil', 'b.', 'demille', 'animated', 'http', 'mad', 'motion', ')', '(', 'at', '"', '``', 'television', 'musical', '“', 'goes', 'screenplay', 'performance', 'i', 'or', 'upset', 'happy', 'sad', 'good', 'bad', 'funny', 'cool', 'awful', 'terrible', 'supporting', 'series', 'these', 'did', 'actor', 'actress', 'oscars', 'even', ',', "n't", 'nominee','tv', 'mini-series', 'miniseries', 'of', '?', 'was', 'get', 'film', 'language', 'comedy', 'drama', 'in', 'are', 'goldenglobes', 'the', 'song', 'original', 'rt', '!', '#', 'for', 'is', 'want', '@', "'", 'best', 'golden', 'globes', 'should', 'have', 'been', '-', ':', 'picture', 'director', '.', 'introduce', 'a', 'an', 'foreign', 'oscar', 'introduces', 'score', 'original', 'he', 'she', 'they', 'and', 'as', "'ve", 'not', 'on', 'oscarnoms', 'ovation']
 
 def handle_high_score(candidate_dict: dict, award: str, tweet: str, score: int):
     if award in candidate_dict:
@@ -41,6 +41,7 @@ def detokenize(tokens):
 def make_string_combinations(tokenized_string: list, direction: str, person: bool):
     combos = []
     count = 0
+
     while count < len(tokenized_string):
         if tokenized_string[count].lower() in ignore:
             tokenized_string.remove(tokenized_string[count])
@@ -48,7 +49,6 @@ def make_string_combinations(tokenized_string: list, direction: str, person: boo
         count += 1
     if person:
         return check_people(tokenized_string)
-
     if len(tokenized_string) == 0:
         return []
     if direction == 'left':
@@ -64,8 +64,8 @@ def make_string_combinations(tokenized_string: list, direction: str, person: boo
         curr_idx += 1
     return combos
 
-def get_nominees(year):
-    key_words = ['nominated', 'nominate', 'nominee', 'nominates', 'nominating', 'nominations', 'nomination', 'nom', 'noms', 'nommed']
+def get_winners(year):
+    key_words = ['wins', 'won', 'win', 'receives']
     tweets = pull_text.Data(year).tweets
     if year == 2013 or year == 2015:
         awards = OFFICIAL_AWARDS_1.copy()
@@ -89,7 +89,7 @@ def get_nominees(year):
         high_match_score = -1
         equal_scores = []
         for idx, award in enumerate(awards):
-            score = fuzz.token_set_ratio(tweet.text_unchanged, award)
+            score = fuzz.token_set_ratio(tweet.text, award)
             if score > high_match_score:
                 high_match_idx = idx
                 high_match_score = score
@@ -145,31 +145,28 @@ def get_nominees(year):
                 bucket.extend(make_string_combinations(tokenized[0:nom_idx], 'left', person))
                 bucket.extend(make_string_combinations(tokenized[nom_idx + 1:], 'right', person))
         final_nominees[award] = bucket
-    complete_noms = dict()
+    complete_winners = dict()
     for award in awards:
         if award in awards_no_candidates:
             use_award = awards_no_candidates[award]
-            bucket = final_nominees[use_award]
+            if use_award in final_nominees:
+                bucket = final_nominees[use_award]
+            else:
+                print('Winner for', award, ':no one')
+                continue
             dist = FreqDist(bucket)
-            print('Nominees for', award, ':', dist.most_common(10)[6:])
-            for noms in dist.most_common(10)[6:]:
-                if noms[0] not in complete_noms[award]:
-                    complete_noms[award] = [noms[0]]
-                else:
-                    complete_noms[award].append(noms[0])
+            print('Winner for', award, ':', dist.most_common(10)[6][0])
+            complete_winners[award] = dist.most_common(6)[6][0]
         else:
             bucket = final_nominees[award]
             dist = FreqDist(bucket)
-            print('Nominees for', award, ':', dist.most_common(5))
-            nom_list = []
-            for noms in dist.most_common(5):
-                nom_list.append(noms[0])
-            complete_noms[award] = nom_list
-    print(complete_noms)
-    return complete_noms
+            print('Winner for', award, ':', dist.most_common(1)[0][0])
+            complete_winners[award] = dist.most_common(1)[0][0]
+    print(complete_winners)
+    return complete_winners
 
 
 
 
 if __name__ == '__main__':
-    get_nominees(int(sys.argv[1]))
+    get_winners(int(sys.argv[1]))
