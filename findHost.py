@@ -105,16 +105,16 @@ def findHosts(Dict):
     sortedValues.sort(reverse=True)
     host2value = sortedValues[1]
     host2index = dictValues.index(host2value)
-    # if the firs+last name with second most votes has at least 50% 
+    # if the first+last name with second most votes has at least 50% 
     # as many votes as the first+last name with the most votes,
     # the first+last name with 2nd most votes may be 2nd host
     if dictValues[host2index] >= float(0.5 * Dict.get(host1)):
         host2 = potentialHost[host2index]
         #print('Hosts are: {} and {}'.format(host1, host2))
-        return host1, host2
+        return [host1, host2]
     else:
         #print('Host is: {}'.format(host1))
-        return host1
+        return [host1]
     return
 
 def runHosts(year):
