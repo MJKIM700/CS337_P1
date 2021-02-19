@@ -11,10 +11,12 @@ class Tweet(object):
     def __init__(self, id:int, text:str):
         self.id = id
         self.text = text.lower()
+        self.text_unchanged = text
 
     def __str__(self):
         string = 'ID: ' + str(self.id) + '\n'
         string += 'Text: ' + self.text + '\n'
+        string += 'Text Unchanged: ' + self.text_unchanged + '\n'
         return string
 
 class Data(object):
@@ -23,7 +25,7 @@ class Data(object):
         tweet_data = pd.read_json(name)
         tweets = []
         for index,row in tweet_data.iterrows():
-            new_tweet = Tweet(row['id'], row['text'])
+            new_tweet = Tweet(row['id'], row['text'], row['text'])
             tweets.append(new_tweet)
         self.tweets = tweets.copy()
 
