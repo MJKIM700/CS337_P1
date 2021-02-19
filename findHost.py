@@ -11,7 +11,7 @@ spec_char = ['@', '#', '&']
 nono_words = ['golden', 'globe', 'globes', 'Golden', 'Globe', 'Globes', 'goldenglobes', 'GoldenGlobes','RT']
 
 
-tweets = pull_text.Data(2013).tweets
+tweets = pull_text.Data(2015).tweets
 
 hostTweetTexts = []
 for tweet in tweets:
@@ -86,8 +86,8 @@ def rankProperNouns(lstOfSent):
 #def sortDict(voteDict):
     #return dict(sorted(voteDict.items(), key=lambda item: item[1], reverse=True))
 
-def findHosts(sortedDict):
-    lstOfTup = [(k, sortedDict[k]) for k in sorted(sortedDict, key=sortedDict.get, reverse=True)]
+def findHosts(Dict):
+    lstOfTup = [(k, Dict[k]) for k in sorted(Dict, key=Dict.get, reverse=True)]
     lstOfLst = []
     for i in lstOfTup:
         lstOfLst.append(list(i))
@@ -108,18 +108,34 @@ def findHosts(sortedDict):
             single.append(shortlist[i])
         if shortlistLen[i] == 2:
             double.append(shortlist[i])
-    print(single)
-    print(double)
+    #print(single)
+    #print(double)
     potentialHost = []
     for i in range(len(single)):
         for j in range(len(single)):
-            print('combo is: ' + str(single[i]) +' '+ str(single[j]))
+            #print('combo is: ' + str(single[i]) +' '+ str(single[j]))
             if str(single[i] +' '+ single[j]) in double:
                 firstLast = str(single[i] +' '+ single[j])
                 potentialHost.append(firstLast)
-                print('inserting pair: ' + firstLast)
+                #print('inserting pair: ' + firstLast)
     print('potentialHost is: ' + str(potentialHost))
-    
+    dictValues = []
+    for i in range(len(potentialHost)):
+        dictValues.append(Dict.get(potentialHost[i]))
+    print('dictValues is: '+str(dictValues))
+    host1index = dictValues.index(max(dictValues))
+    host1 = potentialHost[host1index]
+    sortedValues = [val for val in dictValues]
+    sortedValues.sort(reverse=True)
+    print('sortedValues is: ' + str(sortedValues))
+    print('dictValues after sort is: '+str(dictValues))
+    host2value = sortedValues[1]
+    host2index = dictValues.index(host2value)
+    if dictValues[host2index] >= float(0.5 * Dict.get(host1)):
+        host2 = potentialHost[host2index]
+        print('Hosts are: {} and {}'.format(host1, host2))
+    else:
+        print('Host is: {}'.format(host1))
     return
 """
     for i in shortlistCopy:
