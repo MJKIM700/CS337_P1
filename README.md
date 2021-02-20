@@ -16,5 +16,5 @@ To get out of the virtual environment, simply type:
 deactivate
 ```
 
-#Team Members: Michael Kim
+# Team Members: Michael Kim
 Feel free to reach out to me if there are some questions. The json output in main() inside the gg_api.py file will be in variable json_output. The human readable output will be printed out when main() is run.
