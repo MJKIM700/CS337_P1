@@ -12,13 +12,13 @@ ignore = ['cecil', 'b.', 'demille', 'animated', 'http', 'mad', 'motion', ')', '(
 def handle_high_score(candidate_dict: dict, award: str, tweet: str, score: int):
     if award in candidate_dict:
         if tweet in candidate_dict[award]:
-            print('did not put', tweet, 'into', award, 'because it was already in')
+            #print('did not put', tweet, 'into', award, 'because it was already in')
             pass
         else:
             candidate_dict[award].append(tweet)
     else:
         candidate_dict[award] = [tweet]
-    print('put', tweet, 'into', award, 'because the match score was', score)
+    #print('put', tweet, 'into', award, 'because the match score was', score)
     return candidate_dict
 
 def check_people(tokens):
@@ -167,7 +167,7 @@ def get_presenters(year):
                 complete_presenters[award] = [common[0][0]]
             else:
                 complete_presenters[award] = []
-    print(complete_presenters)
+    # print(complete_presenters)
     return complete_presenters
 
 
