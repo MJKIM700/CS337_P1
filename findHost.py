@@ -12,7 +12,7 @@ def tweetData(year):
 def processTweets(tweet_data):
     hostTweetTexts = []
     for tweet in tweet_data:
-        if "hosts" in tweet.text:
+        if "host" in tweet.text:
             if ("should" in tweet.text) or ("next year" in tweet.text):
                 pass
             else:
