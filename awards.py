@@ -4,11 +4,6 @@ import pull_text
 from nltk.tag import pos_tag
 from nltk.tokenize import word_tokenize
 
-# tweets = pull_text.Data(year).tweets
-# tweets[index].text
-
-# tweet.text_unchanged -> no .lower()
-
 
 def get_tweets(year):
     tweets = pull_text.Data(year).tweets
@@ -16,30 +11,6 @@ def get_tweets(year):
     for tweet in tweets:
         tweettext.append(tweet.text)
     return tweettext
-
-
-def ngrams_right(in_string, keywords):
-    ngram_list = []
-    if 'best' in in_string:
-        for kw in keywords:
-            if kw in in_string.lower():
-                split_string = in_string.partition(kw)
-                right = word_tokenize(split_string[2])
-                for i in range(len(right)):
-                    ngram_list.append(right[:i + 1])
-    return ngram_list
-
-
-def ngrams_left(in_string, keywords):
-    ngram_list = []
-    if 'best' in in_string:
-        for kw in keywords:
-            if kw in in_string.lower():
-                split_string = in_string.partition(kw)
-                left = word_tokenize(split_string[0])
-                for i in range(len(left)):
-                    ngram_list.append(left[i:])
-    return ngram_list
 
 
 def ngrams_best(in_string, caps):
@@ -83,23 +54,6 @@ def valid_award(candidate, ignore_list):
     return True
 
 
-def prune_string(str):
-    pruned_str = str
-    return pruned_str
-
-
-# get input data somehow
-# generate ngrams from the data
-# keep track of votes for ngrams
-# figure out how to decide who wins
-
-# assume have some list of strings in tweet_text
-
-# right-side kws in kw_right
-# left-side kws in kw_left
-kw_right = ['wins', 'gets', 'won', 'for winning', 'win', 'presenting', 'get', ':', '-', 'goldenglobe for', 'wins for',
-            '#goldenglobe', 'award for']
-kw_left = ['goes to', ':', '-', 'award', 'goldenglobe', 'golden globe', '#goldenglobe']
 ignore = ['who', 'show', 'host', 'for', 'golden', 'globe', 'goldenglobe', 'goldenglobes', 'of', 'dressed', 'fucking',
           "'", 'part', 'red']
 cap_words = ['#', ':', 'for', '!', "'", 'http', 'win', 'at', 'nominee', 'award', 'goes', 'is', ',', '-', 'or']
@@ -126,9 +80,7 @@ def get_awards(tt):
     for key in list(votes):
         if votes[key] > 40:
             num_keys += 1
-            print(key + ":")
-            print(votes[key])
-    print(num_keys)
+    return list(votes)
 
 
 if __name__ == '__main__':
