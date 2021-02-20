@@ -79,11 +79,10 @@ def main():
         print('Presenters: ', presenters[award])
         print('Nominees: ', nominees[award])
         print('Winner: ', winners[award])
-        json_output[award: {
-            'Presenters': presenters[award],
-            'Nominees': nominees[award],
-            'Winner': winners[award]
-        }]
+        json_output[award] =  {'Presenters': presenters[award],
+                               'Nominees': nominees[award],
+                               'Winner': winners[award]}
+
     print(json.dump(json_output))
     return
 
