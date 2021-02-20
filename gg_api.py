@@ -30,6 +30,7 @@ def get_nominees(year):
     the name of this function or what it returns.'''
     # Your code here
     nominees = noms.get_nominees(year)
+    nominees['cecil b. demille award'] = ''
     return nominees
 
 def get_winner(year):
