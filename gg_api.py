@@ -19,12 +19,10 @@ def get_hosts(year):
     '''Hosts is a list of one or more strings. Do NOT change the name
     of this function or what it returns.'''
     # Your code here
-    for answer in list(answers.queue):
-        if answer[0] == 'hosts':
-            hosts = answer[1]
+    hosts = final_answers['hosts']
     return hosts
 
-def award(year):
+def award(year): #put awards array call in place of the empty array here
     awards = []
     answers.put(('awards', awards))
 
@@ -32,11 +30,8 @@ def get_awards(year):
     '''Awards is a list of strings. Do NOT change the name
     of this function or what it returns.'''
     # Your code here
-    for answer in list(answers.queue):
-        if answer[0] == 'hosts':
-            hosts = answer[1]
-            break
-    return hosts
+    awards = final_answers['awards']
+    return awards
 
 def nominee(year):
     nominees = noms.get_nominees(year)
@@ -47,10 +42,7 @@ def get_nominees(year):
     names as keys, and each entry a list of strings. Do NOT change
     the name of this function or what it returns.'''
     # Your code here
-    for answer in list(answers.queue):
-        if answer[0] == 'nominees':
-            nominees = answer[1]
-            break
+    nominees = final_answers['nominees']
     return nominees
 
 def winner(year):
@@ -62,10 +54,7 @@ def get_winner(year):
     names as keys, and each entry containing a single string.
     Do NOT change the name of this function or what it returns.'''
     # Your code here
-    for answer in list(answers.queue):
-        if answer[0] == 'winners':
-            winners = answer[1]
-            break
+    winners = final_answers['winners']
     return winners
 
 def presenter(year):
@@ -77,11 +66,14 @@ def get_presenters(year):
     names as keys, and each entry a list of strings. Do NOT change the
     name of this function or what it returns.'''
     # Your code here
-    for answer in list(answers.queue):
-        if answer[0] == 'presenters':
-            presenters = answer[1]
-            break
+    presenters = final_answers['presenters']
     return presenters
+
+def handle_answers():
+    print('length of answers:', len(answers))
+    while len(answers) > 0:
+        set = answers.get()
+        final_answers[set[0]] = set[1]
 
 def pre_ceremony():
     '''This function loads/fetches/processes any data your program
@@ -94,11 +86,12 @@ def pre_ceremony():
     functions.append(Process(target=presenter, args=(2013,)))
     functions.append(Process(target=nominee, args=(2013,)))
     functions.append(Process(target=winner, args=(2013,)))
+    # functions.append(Process(target=award, args=(2013,))) #uncomment this line when the award() func is done
     for job in functions:
         job.start()
     for job in functions:
         job.join()
-
+    handle_answers()
     print("Pre-ceremony processing complete.")
     return
 
