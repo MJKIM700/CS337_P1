@@ -152,7 +152,6 @@ def get_winners(year):
             if use_award in final_nominees:
                 bucket = final_nominees[use_award]
             else:
-                print('Winner for', award, ':no one')
                 continue
             dist = FreqDist(bucket)
             complete_winners[award] = dist.most_common(6)[6][0]
@@ -160,7 +159,7 @@ def get_winners(year):
             bucket = final_nominees[award]
             dist = FreqDist(bucket)
             complete_winners[award] = dist.most_common(1)[0][0]
-    print(complete_winners)
+    # print(complete_winners)
     return complete_winners
 
 

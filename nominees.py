@@ -163,7 +163,7 @@ def get_nominees(year):
             for noms in dist.most_common(5):
                 nom_list.append(noms[0])
             complete_noms[award] = nom_list
-    print(complete_noms)
+    # print(complete_noms)
     return complete_noms
 
 
